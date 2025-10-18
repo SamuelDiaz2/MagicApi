@@ -1,78 +1,79 @@
-function GenerarLista(arraypokemones) {
+function GenerarLista(arrayItems) {
   let listaHTML = "";
-  for (let i = 0; i < arraypokemones.length; i++) {
-    // usa directamente el index (más limpio)
-    let id = arraypokemones[i].index;
+
+  for (let i = 0; i < arrayItems.length; i++) {
+    const item = arrayItems[i];
+    const id = item.index;
 
     listaHTML += `
-      <div class="c-lista-pokemon poke-${id}" onclick="Detalle('${id}')">
-          <p><strong>nombre: </strong> ${arraypokemones[i].name}</p>
-          <img src="https://www.dnd5eapi.co/api/images/magic-items/${arraypokemones[i].index}.png" width="auto" height="60" loading="lazy" alt="${arraypokemones[i].name}">
+      <div class="c-lista-items items-${id}" onclick="Detalle('${id}')">
+        <img 
+          src="https://www.dnd5eapi.co${item.image}"
+          onerror="this.src='https://www.dnd5eapi.co/api/images/magic-items/${item.index}.png'" 
+          width="auto" height="60" loading="lazy" alt="${item.name}">
+        <p>${item.name}</p>
       </div>`;
   }
 
   return listaHTML;
 }
 
-function buscadorfuncion(asa){
-    if(asa.length >= 3){
-        const filtrados = [];
-        for (let i = 0; i < pokemones.length; i++) {
-            const nombre = pokemones[i].name.toLowerCase();
-            if (nombre.includes(asa.toLowerCase())) {
-                filtrados.push(pokemones[i]);
-            }
-        }
-        let listapokes = GenerarLista(filtrados)
-        document.getElementById("la-lista").innerHTML = listapokes;
-    }
+function buscadorfuncion(asa) {
+  if (asa.length >= 3) {
+    const filtrados = items.filter(item => 
+      item.name.toLowerCase().includes(asa.toLowerCase())
+    );
+    document.getElementById("la-lista").innerHTML = GenerarLista(filtrados);
+  } else if (asa.length === 0) {
+    document.getElementById("la-lista").innerHTML = GenerarLista(items);
+  }
 }
 
-function Home(){
+function FiltroCategoria(tipo) {
+  const filtrados = items.filter(item => {
+    const cat = item.equipment_category?.index || item.type || "";
+    return cat === tipo;
+  });
 
-    var root = document.getElementById("root");
-    root.innerHTML = ""
-    //buscador
-    const buscador = document.createElement("input");
-    buscador.classList.add("c-buscador");
-    buscador.type = "text";
-    buscador.placeholder = "Buscar item...";
-    buscador.addEventListener("input", () => {
-            buscadorfuncion(buscador.value);
-    });
+  if (filtrados.length > 0) {
+    document.getElementById("la-lista").innerHTML = GenerarLista(filtrados);
+  } else {
+    document.getElementById("la-lista").innerHTML = `<p>No hay items en esta categoría.</p>`;
+  }
+}
 
-    // filtro
-    const tipos = [
-        "adventuring-gear", "ammunition", "arcane-foci", "armor", "artisans-tools", "druidic-foci", "equipment-packs",
-        "gaming-sets", "heavy-armor", "holy-symbols", "kits", "land-vehicles", "light-armor", "martial-melee-weapons", "martial-ranged-weapons",
-        "martial-weapons", "medium-armor", "melee-weapons", "mounts-and-other-animals", "mounts-and-vehicles", "musical-instruments", "other-tools", "potion",
-        "ranged-weapons", "ring", "rod", "scroll", "shields", "simple-melee-weapons", "simple-melee-weapons", "simple-weapons", "staff", "standard-gear", "tack-harness-and-drawn-vehicles",
-        "tools", "wand", "waterborne-vehicles", "weapon", "wondrous-items"  
-    ];
-    const filtro = document.createElement("div");
+function Home() {
+  const root = document.getElementById("root");
+  root.innerHTML = "";
 
-    for (let i = 0; i < tipos.length; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = tipos[i];
-        
-        // Agregar el evento click para filtrar por tipo
-        btn.addEventListener("click", () => {
-            FiltroConexion(tipos[i]); 
-        });
+  const buscador = document.createElement("input");
+  buscador.classList.add("c-buscador");
+  buscador.type = "text";
+  buscador.placeholder = "Buscar item...";
+  buscador.addEventListener("input", () => buscadorfuncion(buscador.value));
 
-        // Agregar el botón al contenedor
-        filtro.appendChild(btn);
-    }
-    
-    //listas
-    const listapokes = GenerarLista(pokemones);
-    var contenedorLista = document.createElement("section")
-    contenedorLista.classList.add("c-lista");
-    contenedorLista.id = "la-lista"
-    contenedorLista.innerHTML = listapokes;
-    //agregar
+  const tipos = [
+    "ammunition", "armor",  
+    "weapon", "wondrous-items"
+  ];
 
-    document.getElementById("root").appendChild(buscador)
-    document.getElementById("root").appendChild(filtro)
-    document.getElementById("root").appendChild(contenedorLista)
+  const filtro = document.createElement("div");
+  filtro.classList.add("c-filtros");
+
+  tipos.forEach(tipo => {
+    const btn = document.createElement("button");
+    btn.textContent = tipo;
+    btn.addEventListener("click", () => FiltroCategoria(tipo));
+    filtro.appendChild(btn);
+  });
+
+  const contenedorLista = document.createElement("section");
+  contenedorLista.classList.add("c-lista");
+  contenedorLista.id = "la-lista";
+  contenedorLista.innerHTML = GenerarLista(items);
+
+  
+  document.getElementById("root").appendChild(buscador);
+  document.getElementById("root").appendChild(filtro);
+  document.getElementById("root").appendChild(contenedorLista);
 }

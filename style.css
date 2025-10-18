@@ -1,3 +1,164 @@
+/* ===== ESTILOS GENERALES ===== */
 body {
-   background: gray; 
+  background: #121212; /* gris oscuro elegante */
+  color: #f2f2f2;
+  font-family: 'Cinzel', serif; /* estilo medieval */
+  margin: 0;
+  padding: 0;
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ===== NAVEGACIÓN SUPERIOR ===== */
+nav {
+  background: #1a1a1a;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid #ffcc00;
+}
+
+nav button {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #f2f2f2;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+nav button:hover {
+  background: #ffcc00;
+  color: #000;
+}
+
+nav button.active {
+  background: #ffcc00;
+  color: #000;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+#root {
+  padding: 20px;
+  min-height: 90vh;
+  transition: all 0.3s ease;
+}
+
+/* ===== LISTA DE ITEMS ===== */
+.c-lista-items {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 10px;
+  display: inline-block;
+  text-align: center;
+  width: 180px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.c-lista-items:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.3);
+}
+
+.c-lista-items img {
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+/* ===== DETALLE DE ITEM ===== */
+.c-detalle {
+  background: #181818;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: center;
+  border: 1px solid #ffcc00;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+}
+
+.c-detalle img {
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+/* ===== BOTONES ===== */
+button {
+  background: #2e2e2e;
+  border: 1px solid #ffcc00;
+  color: #f2f2f2;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #ffcc00;
+  color: #000;
+}
+
+.c-original-container {
+  background: #121212;
+  color: white;
+  min-height: 100vh;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.c-original-container h2 {
+  color: #c8a2ff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.c-original-container h1 {
+  font-size: 2.4rem;
+  color: #fff;
+  margin-top: 15px;
+}
+
+.c-original-desc {
+  max-width: 700px;
+  margin: 20px auto;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.c-original-btn {
+  background: #2c2c54;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 12px 25px;
+  margin: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.c-original-btn:hover {
+  background: #474787;
+  transform: scale(1.05);
+}
+
+.c-original-container img {
+  margin: 25px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(200, 162, 255, 0.4);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

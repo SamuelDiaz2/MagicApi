@@ -1,29 +1,45 @@
-let pokemones = [];
-let totalPokes = 100;
+let items = [];
 
 //conexion para obtener la lista de pokemon
 
 async function Conexion(UnFiltro) {
-    if(UnFiltro == "All"){
-    const res = await fetch(`https://www.dnd5eapi.co/api/2014/magic-items`);
-    const data = await res.json();
-    return data.results.slice(0, 50);
-  }else{
-    const res = await fetch(`https://www.dnd5eapi.co/api/2014/equipment-categories/${UnFiltro}`);
-    const data = await res.json();
-    const pokemonesTipo = [];
-    for (let i = 0; i < data.equipment.length; i++) {
-      pokemonesTipo.push(data.equipment[i]);
+  const url = UnFiltro == "All"
+    ? `https://www.dnd5eapi.co/api/2014/magic-items`
+    : `https://www.dnd5eapi.co/api/2014/equipment-categories/${UnFiltro}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (UnFiltro == "All") {
+    const itemsBase = data.results.slice(0, 50);
+    const itemsDetallados = [];
+
+    for (const item of itemsBase) {
+      const resItem = await fetch(`https://www.dnd5eapi.co${item.url}`);
+      const detalle = await resItem.json();
+      itemsDetallados.push(detalle);
     }
-    return pokemonesTipo;
-    }
+
+    return itemsDetallados;
+  }
+
+  const itemsDetallados = [];
+  for (const item of data.equipment) {
+    const resItem = await fetch(`https://www.dnd5eapi.co${item.url}`);
+    const detalle = await resItem.json();
+    itemsDetallados.push(detalle);
+  }
+  return itemsDetallados;
 }
 
 //cargar todos los pokemon al iniciar
 
 async function General() {
-  if (pokemones.length === 0) {
-    pokemones = await Conexion("All");
+  document.getElementById("root").innerHTML = `
+    <div class="loader">Cargando ítems...</div>
+  `;
+  if (items.length === 0) {
+    items = await Conexion("All");
   }
   Home();
 }
