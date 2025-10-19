@@ -12,7 +12,7 @@ nav {
   background: #1a1a1a;
   padding: 15px;
   padding-top: 30px;
-  padding-left: 10%;
+  padding-left: 3%;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -20,8 +20,8 @@ nav {
 }
 
 nav button {
-  width: 290px;
-  height: 60px;
+  width: 200px;
+  height: 50px;
   background: #2a2a2a;
   border: 1px solid #444;
   color: #f2f2f2;
