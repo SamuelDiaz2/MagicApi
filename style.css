@@ -1,17 +1,18 @@
-/* ===== ESTILOS GENERALES ===== */
 body {
-  background: #121212; /* gris oscuro elegante */
+  background: #121212;
   color: #f2f2f2;
-  font-family: 'Cinzel', serif; /* estilo medieval */
+  font-family: 'Cinzel', serif;
   margin: 0;
   padding: 0;
   transition: background 0.4s, color 0.4s;
 }
 
-/* ===== NAVEGACIÓN SUPERIOR ===== */
+
 nav {
   background: #1a1a1a;
-  padding: 10px;
+  padding: 15px;
+  padding-top: 30px;
+  padding-left: 10%;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -19,12 +20,15 @@ nav {
 }
 
 nav button {
+  width: 290px;
+  height: 60px;
   background: #2a2a2a;
   border: 1px solid #444;
   color: #f2f2f2;
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 4px;
+  font-family: 'Cinzel', serif;
   transition: all 0.3s ease;
 }
 
@@ -38,14 +42,34 @@ nav button.active {
   color: #000;
 }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
 #root {
   padding: 20px;
   min-height: 90vh;
   transition: all 0.3s ease;
 }
 
-/* ===== LISTA DE ITEMS ===== */
+input.c-buscador {
+  position : relative;
+  left: 6.3%;
+}
+
+input.c-buscador{
+  width: 230px;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 0 15px;
+  border: 2px solid #ffcc00;
+  background: transparent;
+  color: white;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.c-lista{
+  text-align: center;
+}
+
 .c-lista-items {
   background: #1c1c1c;
   border: 1px solid #333;
@@ -68,7 +92,7 @@ nav button.active {
   margin-bottom: 6px;
 }
 
-/* ===== DETALLE DE ITEM ===== */
+
 .c-detalle {
   background: #181818;
   border-radius: 10px;
@@ -85,14 +109,21 @@ nav button.active {
   margin: 15px 0;
 }
 
-/* ===== BOTONES ===== */
+.c-filtros{
+  text-align: center;
+}
+
+
 button {
+  left: 10%;
   background: #2e2e2e;
   border: 1px solid #ffcc00;
   color: #f2f2f2;
-  padding: 8px 14px;
+  padding: 10px 14px;
   border-radius: 6px;
   cursor: pointer;
+  font-family: 'Cinzel', serif;
+  margin-left: 1%;
   transition: all 0.3s ease;
 }
 
@@ -161,4 +192,34 @@ button:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+#informativa {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 30px;
+}
+
+#informativa h2 {
+  color: #ffcc00;
+  text-align: center;
+}
+
+#informativa a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+#informativa a:hover {
+  text-decoration: underline;
+}
+
+#informativa ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+
+#informativa li {
+  margin: 10px 0;
+  list-style-type: upper-roman;
 }

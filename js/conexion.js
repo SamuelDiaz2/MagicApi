@@ -21,10 +21,7 @@ async function Conexion(UnFiltro) {
 
         const itemLigero = {
           name: itemData.name,
-          // La imagen es la ruta parcial (ej: /images/magic-items/...). 
-          // La unimos al dominio base.
           fullImageUrl: itemData.image ? `https://www.dnd5eapi.co${itemData.image}` : null,
-          // Puedes añadir 'index' aquí si es útil para el renderizado
         };
 
         return itemLigero;
