@@ -1,53 +1,49 @@
 let items = [];
 
-//conexion para obtener la lista de pokemon
-
 async function Conexion(UnFiltro) {
-  const url = UnFiltro == "All"
-    ? `https://www.dnd5eapi.co/api/2014/magic-items`
-    : `https://www.dnd5eapi.co/api/2014/equipment-categories/${UnFiltro}`;
+  const baseUrl = "https://www.dnd5eapi.co/api/2014";
 
-  const res = await fetch(url);
-  const data = await res.json();
+  if (UnFiltro === "All") {
+    
 
-  if (UnFiltro == "All") {
+    const res = await fetch(`${baseUrl}/magic-items`);
+    const data = await res.json();
+
+    // Solo 50 ítems
     const itemsBase = data.results.slice(0, 50);
-    const itemsDetallados = [];
 
-    for (const item of itemsBase) {
-      const resItem = await fetch(`https://www.dnd5eapi.co${item.url}`);
-      const detalle = await resItem.json();
-      itemsDetallados.push(detalle);
-    }
+    const detalles= await Promise.all(
+      itemsBase.map(async (item) => {
 
-    return itemsDetallados;
+
+        const resItem = await fetch(`${baseUrl}/magic-items/${item.index}`);
+        return await resItem.json();
+
+        const itemLigero = {
+          name: itemData.name,
+          // La imagen es la ruta parcial (ej: /images/magic-items/...). 
+          // La unimos al dominio base.
+          fullImageUrl: itemData.image ? `https://www.dnd5eapi.co${itemData.image}` : null,
+          // Puedes añadir 'index' aquí si es útil para el renderizado
+        };
+
+        return itemLigero;
+      })
+    );
+
+    return detalles;
   }
-
-  const itemsDetallados = [];
-  for (const item of data.equipment) {
-    const resItem = await fetch(`https://www.dnd5eapi.co${item.url}`);
-    const detalle = await resItem.json();
-    itemsDetallados.push(detalle);
-  }
-  return itemsDetallados;
 }
 
-//cargar todos los pokemon al iniciar
 
 async function General() {
-  document.getElementById("root").innerHTML = `
-    <div class="loader">Cargando ítems...</div>
-  `;
+  const root = document.getElementById("root");
+  root.innerHTML = `<div class="loader">Cargando ítems... ✨</div>`;
+
+  // Solo cargamos una vez
   if (items.length === 0) {
     items = await Conexion("All");
   }
-  Home();
-}
 
-
-async function FiltroConexion(filtroelegido){
-    pokesFiltrados = await Conexion(filtroelegido)
-    document.getElementById("la-lista").innerHTML = "";
-    listaFiltro = GenerarLista(pokesFiltrados)
-    document.getElementById("la-lista").innerHTML = listaFiltro
+  Home(); // muestra el home cuando ya cargaron
 }
