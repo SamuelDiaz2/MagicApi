@@ -10,25 +10,23 @@ body {
 
 nav {
   background: #1a1a1a;
-  padding: 15px;
-  padding-top: 30px;
-  padding-left: 3%;
+  padding: 10px 10px 10px;
   display: flex;
-  align-items: center;
   gap: 10px;
   border-bottom: 2px solid #ffcc00;
+  justify-content: center;
 }
 
 nav button {
-  width: 200px;
-  height: 50px;
+  width: 90px;
+  height: 45px;
   background: #2a2a2a;
   border: 1px solid #444;
   color: #f2f2f2;
-  padding: 6px 12px;
   cursor: pointer;
   border-radius: 4px;
   font-family: 'Cinzel', serif;
+  font-size: 12px;
   transition: all 0.3s ease;
 }
 
@@ -113,9 +111,7 @@ input.c-buscador{
   text-align: center;
 }
 
-
-button {
-  left: 10%;
+.c-filtros button{
   background: #2e2e2e;
   border: 1px solid #ffcc00;
   color: #f2f2f2;
